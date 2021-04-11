@@ -2,20 +2,31 @@ import React from 'react'
 import { Card } from 'semantic-ui-react'
 
 class PokemonCard extends React.Component {
+  state = {
+    imageSrc: 'front'
+  }
+
+  setImageSide = () => {
+    this.setState(prevState => ({
+        imageSrc: prevState.imageSrc.includes('front') ? 'back' : 'front'
+      })
+    );
+  }
+
   render() {
     return (
       <Card>
-        <div>
+        <div onClick={this.setImageSide}>
           <div className="image">
-            <img alt="oh no!" />
+            <img src={this.props.pokemon.sprites[`${this.state.imageSrc}`]} alt="oh no!" />
           </div>
           <div className="content">
-            <div className="header">POKEMON NAME HERE</div>
+            <div className="header">{this.props.pokemon.name}</div>
           </div>
           <div className="extra content">
             <span>
               <i className="icon heartbeat red" />
-              POKEMON HP HERE hp
+              {this.props.pokemon.hp}
             </span>
           </div>
         </div>
